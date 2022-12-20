@@ -1,5 +1,24 @@
 # Change Log
 
+Version 0.23.0 *UNRELEASED*
+---------------------------------
+
+Updated docs can be found on [the new website](https://vanniktech.github.io/gradle-maven-publish-plugin/).
+
+- **NEW**: It is now possible to set group id, artifact id directly through the DSL
+  ```groovy
+  mavenPublishing {
+    coordinates("com.example", "library", "1.0.3")
+  }
+  ```
+- **Behavior change**: It is not possible anymore to override the `GROUP` and `VERSION_NAME` Gradle properties
+  by setting `project.group` and `project.version`. Please use the new `coordinates` method instead.
+- **Behavior change**: The `GROUP` and `VERSION_NAME` Gradle properties will not be set explicitly as
+  `project.group` and `project.version` anymore.
+- `project.group` and `project.version` will still be used as default values for group if the
+  `GROUP`/`VERSION_NAME` Gradle properties do not exist and `coordinates` was not called.
+
+
 Version 0.22.0 *(2022-09-09)*
 ---------------------------------
 
@@ -11,7 +30,7 @@ Version 0.22.0 *(2022-09-09)*
 SONATYPE_HOST=DEFAULT # or S01
 SONATYPE_AUTOMATIC_RELEASE=true
 ```
-or 
+or
 ```
 mavenPublishing {
   publishToMavenCentral("DEFAULT", true)

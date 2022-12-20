@@ -75,11 +75,12 @@ private fun ProjectSpec.publishingBlock(options: TestOptions): String {
   return if (options.config == TestOptions.Config.DSL) {
     listOfNotNull(
       """
-       group = "$group"
-       version = "$version"
 
        mavenPublishing {
          ${if (options.signing != TestOptions.Signing.NO_SIGNING) "signAllPublications()" else ""}
+
+         coordinates("$group", "$artifactId", "$version")
+
          pom {
       """,
       "    name = \"${properties["POM_NAME"]}\"".takeIf { properties.containsKey("POM_NAME") },
